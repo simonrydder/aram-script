@@ -1,10 +1,11 @@
 import unittest
 
+from src.exceptions.max_player_reached_error import MaxPlayerReachedError
 from src.standards.factories.alpha_aram_factory import AlphaAramFactory
 from src.standards.standard_game import StandardGame
 
 
-class TestAlphaAramGame(unittest.TestCase):
+class TestStandardGame(unittest.TestCase):
     def setUp(self) -> None:
         self.game = StandardGame(AlphaAramFactory())
 
@@ -48,3 +49,14 @@ class TestAlphaAramGame(unittest.TestCase):
         players = self.game.players
 
         self.assertEqual(len(players), 1)
+
+    def test_that_max_4_players_are_allowed(self):
+        # Add 4 players to the game
+        for i in range(4):
+            self.game.add_player(f"player_{i}")
+
+        with self.assertRaises(MaxPlayerReachedError):
+            self.game.add_player("5th_player")
+
+        players = self.game.players
+        self.assertEqual(len(players), 4)
