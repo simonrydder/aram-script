@@ -18,3 +18,7 @@ class DataLoader(ABC):
     @abstractmethod
     def basic_info(self) -> DataFrame:
         pass
+
+    @abstractmethod
+    def ratings(self) -> DataFrame:
+        pass

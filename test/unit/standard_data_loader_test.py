@@ -1,6 +1,7 @@
 import unittest
 from test.fixed_folder_strategy import fixed_folder_strategy
 
+from src.enums.data_columns import DataColumn
 from src.standards.standard_data_loader import StandardDataLoader
 
 
@@ -46,12 +47,29 @@ class TestStandardDataLoaderStrategy(unittest.TestCase):
 
         self.assertEqual(len(df.columns), 3)
 
-    def test_that_basic_info_has_column_name(self):
+    def test_that_basic_info_has_specific_columns(self):
         df = self.loader.basic_info()
 
-        self.assertIn("name", df.columns)
+        self.assertIn(DataColumn.NAME, df.columns)
+        self.assertIn(DataColumn.RELEASE_DATE, df.columns)
+        self.assertIn(DataColumn.IMG_FULL_SRC, df.columns)
 
-    def test_that_basic_info_has_column_release_date(self):
-        df = self.loader.basic_info()
+    def test_that_ratings_has_10_rows(self):
+        df = self.loader.ratings()
 
-        self.assertIn("release-date", df.columns)
+        self.assertEqual(len(df), 10)
+
+    def test_that_ratings_has_6_columns(self):
+        df = self.loader.ratings()
+
+        self.assertEqual(len(df.columns), 6)
+
+    def test_that_ratings_has_specific_columns(self):
+        df = self.loader.ratings()
+
+        self.assertIn(DataColumn.NAME, df.columns)
+        self.assertIn(DataColumn.DMG, df.columns)
+        self.assertIn(DataColumn.TOUGHNESS, df.columns)
+        self.assertIn(DataColumn.CONTROL, df.columns)
+        self.assertIn(DataColumn.MOBILITY, df.columns)
+        self.assertIn(DataColumn.UTILITY, df.columns)
