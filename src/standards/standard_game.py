@@ -1,13 +1,12 @@
 from src.exceptions.max_player_reached_error import MaxPlayerReachedError
 from src.interfaces.game import Game
-from src.interfaces.game_factory import GameFactory
 from src.interfaces.player import Player
 from src.standards.standard_player import StandardPlayer
 
 
 class StandardGame(Game):
-    def __init__(self, game_factory: GameFactory) -> None:
-        super().__init__(game_factory)
+    def __init__(self) -> None:
+        super().__init__()
 
     def add_player(self, name: str) -> None:
 

@@ -1,13 +1,12 @@
 import unittest
 
 from src.exceptions.max_player_reached_error import MaxPlayerReachedError
-from src.standards.factories.alpha_aram_factory import AlphaAramFactory
 from src.standards.standard_game import StandardGame
 
 
 class TestStandardGame(unittest.TestCase):
     def setUp(self) -> None:
-        self.game = StandardGame(AlphaAramFactory())
+        self.game = StandardGame()
 
     def test_that_player_list_is_empty_at_initialization(self):
         players = self.game.players
@@ -60,3 +59,9 @@ class TestStandardGame(unittest.TestCase):
 
         players = self.game.players
         self.assertEqual(len(players), 4)
+
+    # def test_that_generate_champs_gives_4_unique_champs(self):
+    #     self.game.generate_champs()
+    #     champs = self.game.champs
+
+    #     self.assertEqual(champs.nunique(), 4)

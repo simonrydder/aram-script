@@ -1,17 +1,18 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
-from src.interfaces.game_factory import GameFactory
 from src.interfaces.player import Player
 
 
 class Game(ABC):
 
-    def __init__(self, game_factory: GameFactory) -> None:
+    def __init__(self) -> None:
         self.players: list[Player] = []
         pass
 
+    @abstractmethod
     def add_player(self, name: str) -> None:
         pass
 
+    @abstractmethod
     def remove_player(self, name: str) -> None:
         pass
