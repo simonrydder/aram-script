@@ -4,26 +4,19 @@ from datetime import date
 from src.enums.damage_type import DamageType
 from src.enums.range_type import RangeType
 from src.enums.resource_type import ResourceType
+from src.interfaces.factories.champion_factory import ChampionFactory
 from src.interfaces.rating import Rating
 
 
 class Champion(ABC):
-    def __init__(
-        self,
-        name: str,
-        release_date: date,
-        range_type: RangeType,
-        damage_type: DamageType,
-        resource: ResourceType,
-        rating: Rating,
-    ) -> None:
+    def __init__(self, cf: ChampionFactory) -> None:
         super().__init__()
-        self._name = name
-        self._release_date = release_date
-        self._range_type = range_type
-        self._damage_type = damage_type
-        self._resource = resource
-        self._rating = rating
+        self._name = cf.get_name()
+        self._release_date = cf.get_release_date()
+        self._range_type = cf.get_range_type()
+        self._damage_type = cf.get_damage_type()
+        self._resource = cf.get_resource()
+        self._rating = cf.get_rating()
 
     # stats: Stats
     # champ_class: ChampionClass

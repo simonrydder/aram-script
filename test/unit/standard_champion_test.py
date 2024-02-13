@@ -1,31 +1,19 @@
 import unittest
 from datetime import date
+from test.factories.champion.a_champion_factory import TestAChampionFactory
+from test.factories.champion.b_champion_factory import TestBChampionFactory
 
 from src.enums.damage_type import DamageType
 from src.enums.range_type import RangeType
 from src.enums.resource_type import ResourceType
+from src.standards.standard_champion import StandardChampion
 from src.standards.standard_rating import StandardRating
-from src.standards.starndard_champion import StandardChampion
 
 
 class TestStandardChampion(unittest.TestCase):
     def setUp(self) -> None:
-        self.A = StandardChampion(
-            name="Aatrox",
-            release_date=date(2023, 6, 13),
-            range_type=RangeType.MEELE,
-            damage_type=DamageType.PHYSICAL,
-            resource=ResourceType.MANALESS,
-            rating=StandardRating(1, 2, 3, 3, 3),
-        )
-        self.B = StandardChampion(
-            name="Ahri",
-            release_date=date(2020, 5, 19),
-            range_type=RangeType.RANGED,
-            damage_type=DamageType.MAGIC,
-            resource=ResourceType.MANA,
-            rating=StandardRating(2, 1, 2, 1, 1),
-        )
+        self.A = StandardChampion(TestAChampionFactory())
+        self.B = StandardChampion(TestBChampionFactory())
         return super().setUp()
 
     def test_that_name_is_Aatrox(self):

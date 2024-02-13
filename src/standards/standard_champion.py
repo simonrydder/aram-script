@@ -4,20 +4,13 @@ from src.enums.damage_type import DamageType
 from src.enums.range_type import RangeType
 from src.enums.resource_type import ResourceType
 from src.interfaces.champion import Champion
+from src.interfaces.factories.champion_factory import ChampionFactory
 from src.interfaces.rating import Rating
 
 
 class StandardChampion(Champion):
-    def __init__(
-        self,
-        name: str,
-        release_date: date,
-        range_type: RangeType,
-        damage_type: DamageType,
-        resource: ResourceType,
-        rating: Rating,
-    ) -> None:
-        super().__init__(name, release_date, range_type, damage_type, resource, rating)
+    def __init__(self, cf: ChampionFactory) -> None:
+        super().__init__(cf)
 
     @property
     def rating(self) -> Rating:
