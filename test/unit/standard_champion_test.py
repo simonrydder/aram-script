@@ -1,13 +1,9 @@
 import unittest
 from datetime import date
-from multiprocessing import Value
 
-from src.enums import damage_type
 from src.enums.damage_type import DamageType
 from src.enums.range_type import RangeType
-from src.enums.rating_scale import RatingScale
 from src.enums.resource_type import ResourceType
-from src.interfaces.champion import Champion
 from src.standards.standard_rating import StandardRating
 from src.standards.starndard_champion import StandardChampion
 
@@ -20,6 +16,7 @@ class TestStandardChampion(unittest.TestCase):
             range_type=RangeType.MEELE,
             damage_type=DamageType.PHYSICAL,
             resource=ResourceType.MANALESS,
+            rating=StandardRating(1, 2, 3, 3, 3),
         )
         self.B = StandardChampion(
             name="Ahri",
@@ -27,6 +24,7 @@ class TestStandardChampion(unittest.TestCase):
             range_type=RangeType.RANGED,
             damage_type=DamageType.MAGIC,
             resource=ResourceType.MANA,
+            rating=StandardRating(2, 1, 2, 1, 1),
         )
         return super().setUp()
 
@@ -50,11 +48,12 @@ class TestStandardChampion(unittest.TestCase):
 
     def test_that_release_date_cannot_be_changed(self):
         new_date = date(1, 1, 1)
+        old_date = self.A.release_date
 
         with self.assertRaises(ValueError):
             self.A.release_date = new_date
 
-        self.assertNotEqual(self.A.release_date, new_date)
+        self.assertEqual(self.A.release_date, old_date)
 
     def test_that_range_type_is_Melee(self):
         self.assertEqual(self.A.range_type, RangeType.MEELE)
@@ -64,10 +63,12 @@ class TestStandardChampion(unittest.TestCase):
 
     def test_that_range_type_cannot_be_changed(self):
         new_range_type = RangeType.RANGED
+        old_range_type = self.A.range_type
+
         with self.assertRaises(ValueError):
             self.A.range_type = new_range_type
 
-        self.assertNotEqual(self.A.range_type, new_range_type)
+        self.assertEqual(self.A.range_type, old_range_type)
 
     def test_that_damage_type_is_physical(self):
         self.assertEqual(self.A.damage_type, DamageType.PHYSICAL)
@@ -77,10 +78,11 @@ class TestStandardChampion(unittest.TestCase):
 
     def test_that_damage_type_cannot_be_changed(self):
         new_dmg_type = DamageType.MAGIC
+        old_dmg_type = self.A.damage_type
         with self.assertRaises(ValueError):
             self.A.damage_type = new_dmg_type
 
-        self.assertNotEqual(self.A.damage_type, new_dmg_type)
+        self.assertEqual(self.A.damage_type, old_dmg_type)
 
     def test_that_resource_is_manaless(self):
         self.assertEqual(self.A.resource, ResourceType.MANALESS)
@@ -90,10 +92,22 @@ class TestStandardChampion(unittest.TestCase):
 
     def test_that_resource_cannot_be_changed(self):
         new_resource = ResourceType.ENERGY
+        old_resource = self.A.resource
         with self.assertRaises(ValueError):
             self.A.resource = new_resource
 
-        self.assertNotEqual(self.A.resource, new_resource)
+        self.assertEqual(self.A.resource, old_resource)
 
-    # def test_that_ratings_is_3_3_2_2_2(self):
-    #     rating = StandardRating(3, 3, 2, 2, 2)
+    def test_that_A_has_rating_1_2_3_3_3(self):
+        self.assertEqual(self.A.rating, StandardRating(1, 2, 3, 3, 3))
+
+    def test_that_B_has_rating_2_1_2_1_1(self):
+        self.assertEqual(self.B.rating, StandardRating(2, 1, 2, 1, 1))
+
+    def test_that_ratings_cannot_be_changed(self):
+        new_rating = StandardRating(1, 1, 1, 1, 1)
+        old_rating = self.A.rating
+        with self.assertRaises(ValueError):
+            self.A.rating = new_rating
+
+        self.assertEqual(self.A.rating, old_rating)

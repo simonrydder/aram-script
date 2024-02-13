@@ -4,6 +4,7 @@ from datetime import date
 from src.enums.damage_type import DamageType
 from src.enums.range_type import RangeType
 from src.enums.resource_type import ResourceType
+from src.interfaces.rating import Rating
 
 
 class Champion(ABC):
@@ -14,6 +15,7 @@ class Champion(ABC):
         range_type: RangeType,
         damage_type: DamageType,
         resource: ResourceType,
+        rating: Rating,
     ) -> None:
         super().__init__()
         self._name = name
@@ -21,8 +23,8 @@ class Champion(ABC):
         self._range_type = range_type
         self._damage_type = damage_type
         self._resource = resource
+        self._rating = rating
 
-    # rating: Rating
     # stats: Stats
     # champ_class: ChampionClass
     # champ_legacy: ChampionLegacy
@@ -30,8 +32,18 @@ class Champion(ABC):
 
     @property
     @abstractmethod
+    def rating(self) -> Rating:
+        pass
+
+    @rating.setter
+    @abstractmethod
+    def rating(self, value: Rating) -> None:
+        pass
+
+    @property
+    @abstractmethod
     def name(self) -> str:
-        return ""
+        pass
 
     @name.setter
     @abstractmethod
@@ -41,7 +53,7 @@ class Champion(ABC):
     @property
     @abstractmethod
     def release_date(self) -> date:
-        return date(0, 0, 0)
+        pass
 
     @release_date.setter
     @abstractmethod
@@ -51,7 +63,7 @@ class Champion(ABC):
     @property
     @abstractmethod
     def range_type(self) -> RangeType:
-        return RangeType.NONE
+        pass
 
     @range_type.setter
     @abstractmethod
@@ -61,7 +73,7 @@ class Champion(ABC):
     @property
     @abstractmethod
     def damage_type(self) -> DamageType:
-        return DamageType.NONE
+        pass
 
     @damage_type.setter
     @abstractmethod
@@ -71,7 +83,7 @@ class Champion(ABC):
     @property
     @abstractmethod
     def resource(self) -> ResourceType:
-        return ResourceType.NONE
+        pass
 
     @resource.setter
     @abstractmethod

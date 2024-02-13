@@ -1,11 +1,10 @@
-from codecs import raw_unicode_escape_decode
 from datetime import date
-from multiprocessing import Value
 
 from src.enums.damage_type import DamageType
 from src.enums.range_type import RangeType
 from src.enums.resource_type import ResourceType
 from src.interfaces.champion import Champion
+from src.interfaces.rating import Rating
 
 
 class StandardChampion(Champion):
@@ -16,8 +15,17 @@ class StandardChampion(Champion):
         range_type: RangeType,
         damage_type: DamageType,
         resource: ResourceType,
+        rating: Rating,
     ) -> None:
-        super().__init__(name, release_date, range_type, damage_type, resource)
+        super().__init__(name, release_date, range_type, damage_type, resource, rating)
+
+    @property
+    def rating(self) -> Rating:
+        return self._rating
+
+    @rating.setter
+    def rating(self, value: Rating) -> None:
+        raise ValueError("Rating has already been set")
 
     @property
     def name(self) -> str:
@@ -25,10 +33,7 @@ class StandardChampion(Champion):
 
     @name.setter
     def name(self, value: str) -> None:
-        if self._name != "":
-            raise ValueError("Name has already been set")
-
-        self._name = value
+        raise ValueError("Name has already been set")
 
     @property
     def release_date(self) -> date:
@@ -36,10 +41,7 @@ class StandardChampion(Champion):
 
     @release_date.setter
     def release_date(self, value: date) -> None:
-        if self._release_date != date(0, 0, 0):
-            raise ValueError("Release Date has already been set")
-
-        self._release_date = value
+        raise ValueError("Release Date has already been set")
 
     @property
     def range_type(self) -> RangeType:
@@ -47,10 +49,7 @@ class StandardChampion(Champion):
 
     @range_type.setter
     def range_type(self, value: RangeType) -> None:
-        if self._range_type != RangeType.NONE:
-            raise ValueError("RangeType has already been set")
-
-        self._range_type = value
+        raise ValueError("RangeType has already been set")
 
     @property
     def damage_type(self) -> DamageType:
@@ -58,10 +57,7 @@ class StandardChampion(Champion):
 
     @damage_type.setter
     def damage_type(self, value: DamageType) -> None:
-        if self._damage_type != DamageType.NONE:
-            raise ValueError("DamageType has already been set")
-
-        self._damage_type = value
+        raise ValueError("DamageType has already been set")
 
     @property
     def resource(self) -> ResourceType:
@@ -69,7 +65,4 @@ class StandardChampion(Champion):
 
     @resource.setter
     def resource(self, value: ResourceType) -> None:
-        if self._resource != ResourceType.NONE:
-            raise ValueError("Resource has already been set")
-
-        self._resource = ResourceType.HEALTH
+        raise ValueError("Resource has already been set")
