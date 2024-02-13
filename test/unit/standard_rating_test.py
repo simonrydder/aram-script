@@ -14,13 +14,7 @@ class TestStandardRating(unittest.TestCase):
             utility=RatingScale.TREE,
         )
 
-        self.rating_b = StandardRating(
-            damage=RatingScale.TWO,
-            toughness=RatingScale.TREE,
-            control=RatingScale.TWO,
-            mobility=RatingScale.TREE,
-            utility=RatingScale.ONE,
-        )
+        self.rating_b = StandardRating(2, 3, 2, 3, 1)
         return super().setUp()
 
     def test_that_damage_is_1(self):
@@ -54,14 +48,7 @@ class TestStandardRating(unittest.TestCase):
         self.assertEqual(self.rating_b.utility, 1)
 
     def test_that_rating_a_is_equal_rating_1_2_3_1_3(self):
-        new_rating = StandardRating(
-            RatingScale.ONE,
-            RatingScale.TWO,
-            RatingScale.TREE,
-            RatingScale.ONE,
-            RatingScale.TREE,
-        )
-
+        new_rating = StandardRating(1, 2, 3, 1, 3)
         self.assertEqual(self.rating_a, new_rating)
 
     def test_that_rating_a_has_total_rating_10(self):

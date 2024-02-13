@@ -1,29 +1,33 @@
 from abc import ABC, abstractmethod
 
-from src.enums.rating_scale import RatingScale
+from src.enums.rating_scale import LiteralRatingScale, RatingScale
 
 
 class Rating(ABC):
     def __init__(
         self,
-        damage: RatingScale,
-        toughness: RatingScale,
-        control: RatingScale,
-        mobility: RatingScale,
-        utility: RatingScale,
+        damage: RatingScale | LiteralRatingScale,
+        toughness: RatingScale | LiteralRatingScale,
+        control: RatingScale | LiteralRatingScale,
+        mobility: RatingScale | LiteralRatingScale,
+        utility: RatingScale | LiteralRatingScale,
     ) -> None:
         super().__init__()
-        self._damage = damage
-        self._toughness = toughness
-        self._control = control
-        self._mobility = mobility
-        self._utility = utility
+        self._damage = self._get_rating_scale(damage)
+        self._toughness = self._get_rating_scale(toughness)
+        self._control = self._get_rating_scale(control)
+        self._mobility = self._get_rating_scale(mobility)
+        self._utility = self._get_rating_scale(utility)
         self._total: int = 0
+
+    @abstractmethod
+    def _get_rating_scale(self, value: RatingScale | LiteralRatingScale) -> RatingScale:
+        pass
 
     @property
     @abstractmethod
     def damage(self) -> RatingScale:
-        return RatingScale.ONE
+        pass
 
     @damage.setter
     @abstractmethod
@@ -33,7 +37,7 @@ class Rating(ABC):
     @property
     @abstractmethod
     def toughness(self) -> RatingScale:
-        return RatingScale.ONE
+        pass
 
     @toughness.setter
     @abstractmethod
@@ -43,7 +47,7 @@ class Rating(ABC):
     @property
     @abstractmethod
     def control(self) -> RatingScale:
-        return RatingScale.ONE
+        pass
 
     @control.setter
     @abstractmethod
@@ -53,7 +57,7 @@ class Rating(ABC):
     @property
     @abstractmethod
     def mobility(self) -> RatingScale:
-        return RatingScale.ONE
+        pass
 
     @mobility.setter
     @abstractmethod
@@ -63,7 +67,7 @@ class Rating(ABC):
     @property
     @abstractmethod
     def utility(self) -> RatingScale:
-        return RatingScale.ONE
+        pass
 
     @utility.setter
     @abstractmethod
@@ -73,7 +77,7 @@ class Rating(ABC):
     @property
     @abstractmethod
     def total(self) -> int:
-        return 0
+        pass
 
     @total.setter
     @abstractmethod
@@ -82,8 +86,8 @@ class Rating(ABC):
 
     @abstractmethod
     def __eq__(self, other: object) -> bool:
-        return False
+        pass
 
     @abstractmethod
     def __lt__(self, other: object) -> bool:
-        return False
+        pass

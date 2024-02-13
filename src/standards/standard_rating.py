@@ -1,18 +1,24 @@
-from src.enums.rating_scale import RatingScale
+from src.enums.rating_scale import LiteralRatingScale, RatingScale
 from src.interfaces.rating import Rating
 
 
 class StandardRating(Rating):
     def __init__(
         self,
-        damage: RatingScale,
-        toughness: RatingScale,
-        control: RatingScale,
-        mobility: RatingScale,
-        utility: RatingScale,
+        damage: RatingScale | LiteralRatingScale,
+        toughness: RatingScale | LiteralRatingScale,
+        control: RatingScale | LiteralRatingScale,
+        mobility: RatingScale | LiteralRatingScale,
+        utility: RatingScale | LiteralRatingScale,
     ) -> None:
         super().__init__(damage, toughness, control, mobility, utility)
-        self._total = self._sum_ratings()
+        self._total: int = self._sum_ratings()
+
+    def _get_rating_scale(self, value: RatingScale | LiteralRatingScale) -> RatingScale:
+        if isinstance(value, RatingScale):
+            return value
+
+        return RatingScale(value)
 
     @property
     def damage(self) -> RatingScale:
